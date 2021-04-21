@@ -36,7 +36,7 @@ class Atendimento {
                 res.status(400).json(erro);
             } else {
                 // retornamos como resposta o resultado em forma de JSON
-                res.status(201).json(resultados);
+                res.status(201).json(dados);
             }
         })
     }
@@ -60,6 +60,23 @@ class Atendimento {
             } else {
                 resultados = resultados[0];
                 res.status(200).json(resultados);
+            }
+        })
+    }
+
+    edita(id, dados, res) {
+        const query = `UPDATE Atendimentos SET ? WHERE id=${id}`
+
+        if (dados.data) {
+            dados.data = moment(dados.data, 'DD/MM/YYYY').format('YYYY-MM-DD HH:MM:SS');
+        }
+
+        conexao.query(query, dados, (erro, resultados) => {
+            if (erro) {
+                res.status(400).json(erro);
+            } else {
+                resultados = resultados[0];
+                res.status(200).json(dados);
             }
         })
     }

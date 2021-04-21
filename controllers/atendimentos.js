@@ -10,6 +10,11 @@ module.exports = app => {
         Atendimento.busca(id, res);
     });
 
+    app.patch('/atendimentos/:id', (req, res) => {
+        const id = parseInt(req.params.id);
+        Atendimento.edita(id, req.body, res);
+    });
+
     app.post('/atendimentos', (req, res) => {
         const atendimento = req.body;
         // enviamos nossa instância de res para dentro da função assim conseguimos determinar um valor como resposta lá dentro
